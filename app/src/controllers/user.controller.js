@@ -9,6 +9,7 @@ const registerUserValidation = zod.object({
     fullName: zod.string().min(1),
 });
 
+//register user
 const registerUser = asyncHandler( async (req, res) => {
     const registerUserInput = req.body;
     const validResponse = registerUserValidation.safeParse(registerUserInput);
@@ -37,4 +38,35 @@ const registerUser = asyncHandler( async (req, res) => {
     });
 });
 
-export default registerUser
+//login user
+const loginUser = asyncHandler( async (req, res) => {
+    //req-body
+    const {username, email, password} = req.body;
+    //username or email req
+    if(!username || !email){
+        return res.status(400).json({
+            message: "Username or Email required"
+        })
+    };
+    //find user
+    const fetchUser = await User.findOne({
+        $or: [{username}, {email}]
+    })
+    if(!fetchUser){
+        return res.status(404).json({
+            message: "User does not exist"
+        })
+    };
+    //password check
+    const isPwdValid = await fetchUser.isPasswordCorrect(password);
+    if(!isPwdValid){
+        return res.status(401).json({
+            message: "Invalid User Credentials"
+        })
+    }
+    //access & refresh token
+    
+    //send to cookies
+});
+
+export {registerUser, loginUser}
