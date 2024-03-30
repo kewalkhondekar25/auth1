@@ -6,18 +6,18 @@ const registerValidation = zod.object({
     email: zod.string().min(1).email(),
     password: zod.string().min(3),
     fullName: zod.string().min(1),
-})
+});
 
 const registerUser = asyncHandler( async (req, res) => {
     const registerUserInput = req.body;
-    const response = registerValidation.safeParse(registerUserInput);
-    if(!response.success){
+    const validResponse = registerValidation.safeParse(registerUserInput);
+    if(!validResponse.success){
         res.status(400).json({
-            message: response.error
+            message: validResponse.error
         })
     }else{
         res.status(200).json({
-            response
+            validResponse
         })
     }
 });
