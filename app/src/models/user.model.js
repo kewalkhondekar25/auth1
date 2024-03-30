@@ -25,19 +25,19 @@ const userSchame = new mongoose.Schema(
             trim: true,
             index: true
         },
-        avatar: {
-            type: String,
-            required: true,
-        },
-        coverImage: {
-            type: String,
-        },
-        watchHistory: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Video"
-            }
-        ],
+        // avatar: {
+        //     type: String,
+        //     required: true,
+        // },
+        // coverImage: {
+        //     type: String,
+        // },
+        // watchHistory: [
+        //     {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: "Video"
+        //     }
+        // ],
         password: {
             type: String,
             required: [true, "Password is required"]
