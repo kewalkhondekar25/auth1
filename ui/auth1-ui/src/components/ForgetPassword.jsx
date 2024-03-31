@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const ForgetPassword = () => {
 
@@ -15,14 +15,19 @@ const ForgetPassword = () => {
         setUserData(prev => ({...prev, newPassword: e.target.value}))
     };
     const handleForgetPassword = () => {
-        console.log(userData);
-    }
+        changePassword();
+    };
+    const navigate = useNavigate();
     const changePassword = async() => {
         try {
-            const response = await axios.post("http://localhost:8080/api/v1/users/forgetpassword")
-            
+            const response = await axios.post("http://localhost:8080/api/v1/users/forgetpassword", userData)
+            if(response.status === 200){
+                alert("Password changed successfully");
+                navigate("/");
+                return 
+            }
         } catch (error) {
-            
+            console.log(error);
         }
         
     };
