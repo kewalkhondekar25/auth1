@@ -126,10 +126,6 @@ const changePassword = asyncHandler( async (req, res) => {
     return res.status(200).json({
         message: "Password changed successfully"
     });
-
-    //
-    // const {oldPassword, newPassword} = req.body;
-
 });
 
 export {registerUser, loginUser, logoutUser, changePassword}
