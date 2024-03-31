@@ -85,7 +85,7 @@ const loginUser = asyncHandler( async (req, res) => {
     const loggedInUser = await User.findById(fetchUser._id).select("-password -refresh");
     const options = {
         httpOnly: true, 
-        secure: false
+        secure: true
     }
     return res.status(200)
     .cookie("accessToken", accessToken, options)
