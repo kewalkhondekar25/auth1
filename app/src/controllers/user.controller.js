@@ -115,4 +115,21 @@ const logoutUser = asyncHandler( async(req, res) => {
     });
 });
 
-export {registerUser, loginUser, logoutUser}
+//forget Password
+const changePassword = asyncHandler( async (req, res) => {
+    //get email
+    const {email, newPassword} = req.body;
+    //find id from email
+    const user = await User.findOne({email});
+    user.password = newPassword;
+    await user.save({validateBeforeSave: false})
+    return res.status(200).json({
+        message: "Password changed successfully"
+    });
+
+    //
+    // const {oldPassword, newPassword} = req.body;
+
+});
+
+export {registerUser, loginUser, logoutUser, changePassword}
