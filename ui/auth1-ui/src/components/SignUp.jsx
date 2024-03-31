@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
 
@@ -11,7 +11,7 @@ const SignUp = () => {
     "fullName": ""
   });
   const [error, setError] = useState();
-
+  const navigate = useNavigate();
 
   const handleFirstName = (e) => {
     setUserData(prev => ({...prev, username: e.target.value}))
@@ -28,21 +28,22 @@ const SignUp = () => {
 
   const handleSignup = () => {
     handleRegister();
-    console.log(userData);
   };
 
   const handleRegister = async () => {
     try {
       const response = await axios.post("http://localhost:8080/api/v1/users/register", userData);
       if(response.status === 200){
-        return alert("User Register Successfully");
-      }
+        navigate("/");
+        alert("User Register Successfully");
+        return;
+      };
       if(response.status === 409){
         return alert("User with username or email already exists");
-      }
+      };
     } catch (error) {
       console.error(error);
-      setError(error.response.status)
+      setError(error.response.data.message)
     }
   };
 
@@ -71,11 +72,11 @@ const SignUp = () => {
         className="bg-[#DB1A5A] w-44 mt-5"
         onClick={handleSignup}>Sign In
       </button>
-      {error && <p>Field cannot be empty</p>}
+      {error}
       <div className="flex justify-center place-items-center mt-10">
         <span>Already got an account?</span>
         <Link to="/">
-          <span className="ml-2 text-[12px]">Sign Up</span>
+          <span className="ml-2 text-[12px]">Sign In</span>
         </Link>
       </div>
     </section>

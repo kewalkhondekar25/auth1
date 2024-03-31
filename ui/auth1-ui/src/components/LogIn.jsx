@@ -29,7 +29,7 @@ const LogIn = () => {
     } catch (error) {
       console.error(error);
       if(error){
-        setError(error.response.status)
+        setError(error.response.data.message)
       }
     }
   }
@@ -47,7 +47,7 @@ const LogIn = () => {
       </dl>    
       <button onClick={handleLogInClick}
       className="bg-[#DB1A5A] w-44 mt-5">Sign In</button>
-      {error && <p>Invalid Credentials</p>}
+      {error}
       <div className="flex justify-center place-items-center mt-10">
         <Link to="/forgetpassword">
           <span className="ml-2 text-[12px]">Forget Password?</span>
