@@ -37,7 +37,8 @@ const LogIn = () => {
   };
 
   return (
-    <section className=" relative flex flex-col justify-center place-items-center mt-14">
+    <section className=" relative flex flex-col justify-center place-items-center mt-14
+    lg:mt-[125px]">
       <div className="text-[30px] font-bold">Sign In</div>
       <div>
         <Formik 
@@ -59,17 +60,20 @@ const LogIn = () => {
                   <dt className="mb-1">Email</dt>
                   <dd>
                     <Field name="email" type="text" placeholder="Email"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className="text-red-500"><ErrorMessage name="email"/></dd>
                   <dt className="mb-1 mt-5">Password</dt>
                   <dd>
                     <Field name="password" type="password" placeholder="Password"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/></dd>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/></dd>
                   <dd className="text-red-500"><ErrorMessage name="password"/></dd>
                 </dl>
                 <button 
-                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded">Sign In</button>
+                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded
+                sm:w-[500px]">Sign In</button>
               </div>
             }
           </Form>
@@ -88,7 +92,11 @@ const LogIn = () => {
       </div>
       <img 
       className="absolute bottom-[-144px] -left-8
-      sm:hidden"
+      sm:h-[300px] sm:w-[300px] sm:bottom-[-380px]
+      md:h-[400px] md:w-[400px] md:bottom-[-360px]
+      lg:h-[350px] lg:w-[350px] lg:bottom-[-75px]
+      xl:bottom-0
+      2xl:bottom-0"
       src={signInImg} height={180} width={180} />
     </section>
   )

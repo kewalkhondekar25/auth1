@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as yup from "yup";
 import toast from 'react-hot-toast';
-
+import forgetImg from "../assets/forgetImg.svg";
 
 const ForgetPassword = () => {
 
@@ -28,9 +28,9 @@ const ForgetPassword = () => {
     }
     
   return (
-    <section className="flex flex-col justify-center place-items-center mt-20">
+    <section className="relative flex flex-col justify-center place-items-center mt-14">
       <div
-      className="text-[30px] font-bold">Forget Password</div>
+      className="text-[25px] font-bold mb-5">Password Recovery</div>
       <div>
         <Formik 
         initialValues={{
@@ -49,18 +49,21 @@ const ForgetPassword = () => {
                   <dt className='mb-1'>Email</dt>
                   <dd className='text-black'>
                     <Field type="text" name="email" placeholder="Email"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name='email'/></dd>
                   <dt className="mb-1 mt-5">New Password</dt>
                   <dd className='text-black'>
                     <Field type="password" name="newPassword" placeholder="New Password"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name='newPassword'/></dd>
                 </dl>
                 <button 
-                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded">Confirm</button>
+                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded
+                sm:w-[500px]">Confirm</button>
               </div>
             }
           </Form>
@@ -75,6 +78,10 @@ const ForgetPassword = () => {
           <span className="text-[#C3C3C6] ml-2">Sign Up</span>
         </Link>
       </div>
+      <img src={forgetImg} alt="forget" height={150} width={150}
+      className='absolute -left-9 bottom-[-125px]
+      xl:bottom-0 xl:h-[300px] xl:w-[300px]
+      2xl:bottom-0 2xl:h-[300px] 2xl:w-[300px]' />
     </section>
   )
 }

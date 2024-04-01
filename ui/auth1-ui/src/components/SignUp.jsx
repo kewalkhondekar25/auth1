@@ -54,30 +54,35 @@ const SignUp = () => {
                   <dt className="mb-1">First Name</dt>
                   <dd>
                     <Field type="text" name="username" placeholder="First Name"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name="username"/></dd>
                   <dt className="mb-1 mt-5">Last Name</dt>
                   <dd>
                     <Field type="text" name="fullName" placeholder="Last Name"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name="fullName"/></dd>
                   <dt className="mb-1 mt-5">Email</dt>
                   <dd>
                     <Field type="email" name="email" placeholder="Email"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name="email"/></dd>
                   <dt className="mb-1 mt-5">Password</dt>
                   <dd>
                     <Field type="password" name="password" placeholder="Password"
-                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
+                    sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name="password"/></dd>
                 </dl>
                 <button 
-                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded">Sign Up</button>
+                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded
+                sm:w-[500px]">Sign Up</button>
               </div>
             }
           </Form>
