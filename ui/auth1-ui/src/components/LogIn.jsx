@@ -1,53 +1,63 @@
 import axios from "axios";
 import { useState } from "react"
 import { Link } from 'react-router-dom'
+import {useFormik, Formik, Form, Field, ErrorMessage} from "formik"
+import * as yup from "yup"
 
 
 const LogIn = () => {
 
-  const [userData, setUserData] = useState({
-    email: "",
-    password: ""
-  });
   const [error, setError] = useState();
-
-  const handleUserEmail = (e) => {
-    setUserData(prev => ({...prev, email: e.target.value}))
-  };
-  const handlePassword = (e) => {
-    setUserData(prev => ({...prev, password: e.target.value}))
-  };
-  const handleLogInClick = () => {
-    handleLogIn();
-  };
-  const handleLogIn = async () => {
+  const handleLogin = async(payload) => {
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/users/login", userData);
+      const response = await axios.post("http://localhost:8080/api/v1/users/login", payload)
       if(response.status === 200){
-        alert("LogIn Successfull");
+        alert("Login Success");
+        setError("")
+        return 
       }
     } catch (error) {
-      console.error(error);
-      if(error){
-        setError(error.response.data.message)
-      }
+      console.log(error);
+      setError(error.response.data.message);
     }
-  }
+  };
   
   return (
     <section className="flex flex-col justify-center place-items-center mt-20">
-      <div>Sign In</div>
-      <dl>
-        <dt>Email</dt>
-        <dd><input type="text" 
-        className="text-black" placeholder="Your Email" onChange={handleUserEmail}/></dd>  
-        <dt>Password</dt>
-        <dd><input type="password" 
-        className="text-black" placeholder="Your Password" onChange={handlePassword}/></dd>
-      </dl>    
-      <button onClick={handleLogInClick}
-      className="bg-[#DB1A5A] w-44 mt-5">Sign In</button>
-      {error}
+      <div className="text-2xl">Sign In</div>
+      <div>
+        <Formik 
+        initialValues={{
+          email: "",
+          password: ""
+        }}
+        validationSchema={
+          yup.object({
+            email: yup.string().email("Invalid Email").required("Email is Required"),
+            password: yup.string().required("Password Required")
+          })
+        }
+        onSubmit={values => handleLogin(values)}>
+          <Form>
+            {
+              <div>
+                <dl>
+                  <dt>Email</dt>
+                  <dd className="text-black"><Field name="email" type="text" placeholder="Your Email"/></dd>
+                  <dd className="text-red-500"><ErrorMessage name="email"/></dd>
+                  <dt>Password</dt>
+                  <dd className="text-black"><Field name="password" type="password" placeholder="Your Password"/></dd>
+                  <dd className="text-red-500"><ErrorMessage name="password"/></dd>
+                </dl>
+                <button className="bg-[#DB1A5A] w-[180px] mt-10">Sign In</button>
+                <div>
+                  {error}
+                </div>
+              </div>
+            }
+          </Form>
+        </Formik>
+      </div>
       <div className="flex justify-center place-items-center mt-10">
         <Link to="/forgetpassword">
           <span className="ml-2 text-[12px]">Forget Password?</span>
