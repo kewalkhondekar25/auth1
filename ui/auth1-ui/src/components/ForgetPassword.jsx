@@ -1,40 +1,62 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, json, useNavigate } from 'react-router-dom'
+import {Formik, Form, Field, ErrorMessage} from "formik"
+import * as yup from "yup"
 
 const ForgetPassword = () => {
 
-    const [userData, setUserData] = useState({
-        email: "",
-        newPassword: ""
-    });
-    const handleEmail = (e) => {
-        setUserData(prev => ({...prev, email: e.target.value}))
-    };
-    const handlePassword = (e) => {
-        setUserData(prev => ({...prev, newPassword: e.target.value}))
-    };
-    const handleForgetPassword = () => {
-        changePassword();
-    };
     const navigate = useNavigate();
-    const changePassword = async() => {
-        try {
-            const response = await axios.post("http://localhost:8080/api/v1/users/forgetpassword", userData)
-            if(response.status === 200){
-                alert("Password changed successfully");
-                navigate("/");
-                return 
-            }
-        } catch (error) {
-            console.log(error);
+    const [error, setError] = useState();
+    const handleForgetPassword = async(payload) => {
+      try {
+        const response = await axios.post("http://localhost:8080/api/v1/users/forgetpassword", payload);
+        if(response.status === 200){
+          alert("Password Changed Successfully");
+          navigate("/");
         }
-        
-    };
+      } catch (error) {
+        console.log(error);
+        setError(error.response.data.message)
+      }
+    }
+    
   return (
     <section className="flex flex-col justify-center place-items-center mt-20">
       <div>Forget Password</div>
-      <dl>
+      <div>
+        <Formik 
+        initialValues={{
+          email: "",
+          newPassword: ""
+        }}
+        validationSchema={yup.object({
+          email: yup.string().email().required(),
+          newPassword: yup.string().required().min(3, "Minimum 3 Charecters Needed")
+        })}
+        onSubmit={values => handleForgetPassword(values)}>
+          <Form>
+            {
+              <div>
+                <dl>
+                  <dt>Email</dt>
+                  <dd className='text-black'><Field type="text" name="email"/></dd>
+                  <dd className='text-red-500'><ErrorMessage name='email'/></dd>
+                  <dt>New Password</dt>
+                  <dd className='text-black'><Field type="password" name="newPassword"/></dd>
+                  <dd className='text-red-500'><ErrorMessage name='newPassword'/></dd>
+                </dl>
+                <button 
+                className="bg-[#DB1A5A] w-44 mt-5">Confirm</button>
+                <div className='text-red-500 text-[12px]'>
+                  {error}
+                </div>
+              </div>
+            }
+          </Form>
+        </Formik>
+      </div>
+      {/* <dl>
         <dt>Email</dt>
         <dd><input type="text" 
             className="text-black" placeholder="Your Email"
@@ -46,7 +68,7 @@ const ForgetPassword = () => {
       </dl>    
       <button 
         className="bg-[#DB1A5A] w-44 mt-5"
-        onClick={handleForgetPassword}>Confirm</button>
+        onClick={handleForgetPassword}>Confirm</button> */}
       {/* {error} */}
       <div className="flex justify-center place-items-center mt-10">
         <Link to="/forgetpassword">

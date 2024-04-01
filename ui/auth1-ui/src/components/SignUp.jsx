@@ -1,79 +1,73 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import {Formik, Form, Field, ErrorMessage} from "formik"
+import * as yup from "yup"
 
 const SignUp = () => {
-
-  const [userData, setUserData] = useState({
-    "username": "",
-    "email": "",
-    "password": "",
-    "fullName": ""
-  });
-  const [error, setError] = useState();
   const navigate = useNavigate();
-
-  const handleFirstName = (e) => {
-    setUserData(prev => ({...prev, username: e.target.value}))
-  };
-  const handleLastName = (e) => {
-    setUserData(prev => ({...prev, fullName: e.target.value}))
-  };
-  const handleEmail = (e) => {
-    setUserData(prev => ({...prev, email: e.target.value}))
-  };
-  const handlePassword = (e) => {
-    setUserData(prev => ({...prev, password: e.target.value}))
-  };
-
-  const handleSignup = () => {
-    handleRegister();
-  };
-
-  const handleRegister = async () => {
+  const [error, setError] = useState();
+  const handleRegister = async(payload) => {
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/users/register", userData);
+      const response = await axios.post("http://localhost:8080/api/v1/users/register", payload);
       if(response.status === 200){
+        alert("user register successfully");
+        setError("");
         navigate("/");
-        alert("User Register Successfully");
-        return;
-      };
-      if(response.status === 409){
-        return alert("User with username or email already exists");
-      };
+        return; 
+      }
     } catch (error) {
-      console.error(error);
-      setError(error.response.data.message)
+      console.log(error);
+      setError(error.response.data.message);
     }
   };
 
   return (
     <section className="flex flex-col justify-center place-items-center mt-20">
       <div>Sign Up</div>
-      <dl>
-        <dt>First Name</dt>
-        <dd><input type="text" 
-          className="text-black" placeholder="Your First Name"
-          onChange={handleFirstName}/></dd>  
-        <dt>Last Name</dt>
-        <dd><input type="text" 
-          className="text-black" placeholder="Your Last Name"
-          onChange={handleLastName} /></dd>  
-        <dt>Email</dt>
-        <dd><input type="text" 
-          className="text-black" placeholder="Your Email"
-          onChange={handleEmail} /></dd>  
-        <dt>Password</dt>
-        <dd><input type="password" 
-          className="text-black" placeholder="Your Password"
-          onChange={handlePassword} /></dd>
-      </dl>    
-      <button
-        className="bg-[#DB1A5A] w-44 mt-5"
-        onClick={handleSignup}>Sign In
-      </button>
-      {error}
-      <div className="flex justify-center place-items-center mt-10">
+      <div>
+        <Formik 
+        initialValues={{
+            username: "",
+            email: "",
+            password: "",
+            fullName: ""
+          }}
+          validationSchema={yup.object({
+            username: yup.string().required().min(3, "Minimum 3 Charecters Required"),
+            email: yup.string().email().required(),
+            password: yup.string().required(),
+            fullName: yup.string().required()
+          })}
+          onSubmit={values => handleRegister(values)}>
+          <Form>
+            {
+              <div>
+                <dl>
+                  <dt>First Name</dt>
+                  <dd className="text-black"><Field type="text" name="username" /></dd>
+                  <dd className='text-red-500'><ErrorMessage name="username"/></dd>
+                  <dt>Last Name</dt>
+                  <dd className="text-black"><Field type="text" name="fullName"/></dd>
+                  <dd className='text-red-500'><ErrorMessage name="fullName"/></dd>
+                  <dt>Email</dt>
+                  <dd className="text-black"><Field type="email" name="email"/></dd>
+                  <dd className='text-red-500'><ErrorMessage name="email"/></dd>
+                  <dt>Password</dt>
+                  <dd className="text-black"><Field type="password" name="password"/></dd>
+                  <dd className='text-red-500'><ErrorMessage name="password"/></dd>
+                </dl>
+                <button 
+                className="bg-[#DB1A5A] w-[180px] mt-5">Sign Up</button>
+                <div className='text-red-500 text-[12px] mt-5'>
+                  {error}
+                </div>
+              </div>
+            }
+          </Form>
+        </Formik>
+      </div>
+      <div className="flex justify-center place-items-center mt-3">
         <span>Already got an account?</span>
         <Link to="/">
           <span className="ml-2 text-[12px]">Sign In</span>

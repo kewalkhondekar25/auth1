@@ -43,7 +43,7 @@ const registerUser = asyncHandler( async (req, res) => {
     });
     if(existUser){
         return res.status(409).json({
-            message: "User with username or email already exists"
+            message: "Username or email already exists"
         });
     };
     //creating entry
@@ -121,6 +121,11 @@ const changePassword = asyncHandler( async (req, res) => {
     const {email, newPassword} = req.body;
     //find id from email
     const user = await User.findOne({email});
+    if(!user){
+        return res.status(404).json({
+            message: "Invalid Email Address"
+        })
+    }
     user.password = newPassword;
     await user.save({validateBeforeSave: false})
     return res.status(200).json({

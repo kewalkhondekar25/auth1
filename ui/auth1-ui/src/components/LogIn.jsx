@@ -50,7 +50,7 @@ const LogIn = () => {
                   <dd className="text-red-500"><ErrorMessage name="password"/></dd>
                 </dl>
                 <button className="bg-[#DB1A5A] w-[180px] mt-10">Sign In</button>
-                <div>
+                <div className="text-red-500">
                   {error}
                 </div>
               </div>
