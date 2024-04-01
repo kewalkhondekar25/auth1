@@ -25,7 +25,7 @@ const LogIn = () => {
       console.log(error.response.data.message);
       toast.dismiss(loadingToast);
       setErrorMsg(error.response.data.message);
-      toast.error(`${errorMsg}`)
+      toast.error("Invalid Credentials")
     }
   };
 

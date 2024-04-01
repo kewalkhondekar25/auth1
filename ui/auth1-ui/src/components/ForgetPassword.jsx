@@ -1,23 +1,29 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Link, json, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {Formik, Form, Field, ErrorMessage} from "formik"
-import * as yup from "yup"
+import * as yup from "yup";
+import toast from 'react-hot-toast';
+
 
 const ForgetPassword = () => {
 
     const navigate = useNavigate();
     const [error, setError] = useState();
     const handleForgetPassword = async(payload) => {
+    const loadingToast = toast.loading("Updating Password...");
       try {
         const response = await axios.post("http://localhost:8080/api/v1/users/forgetpassword", payload);
         if(response.status === 200){
-          alert("Password Changed Successfully");
+          toast.dismiss(loadingToast);
           navigate("/");
+          toast.success("Password Changed Successfully")
         }
       } catch (error) {
         console.log(error);
-        setError(error.response.data.message)
+        toast.dismiss(loadingToast);
+        setError(error.response.data.message);
+        toast.error("Invalid Email Address");
       }
     }
     
@@ -48,9 +54,6 @@ const ForgetPassword = () => {
                 </dl>
                 <button 
                 className="bg-[#DB1A5A] w-44 mt-5">Confirm</button>
-                <div className='text-red-500 text-[12px]'>
-                  {error}
-                </div>
               </div>
             }
           </Form>

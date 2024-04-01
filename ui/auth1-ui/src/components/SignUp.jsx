@@ -1,24 +1,31 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {Formik, Form, Field, ErrorMessage} from "formik"
-import * as yup from "yup"
+import {Formik, Form, Field, ErrorMessage} from "formik";
+import * as yup from "yup";
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState();
+  const [errorMsg, setErrorMsg] = useState();
   const handleRegister = async(payload) => {
+  const loadingToast = toast.loading("Signup in Progress...")
     try {
+      loadingToast;
       const response = await axios.post("http://localhost:8080/api/v1/users/register", payload);
       if(response.status === 200){
-        alert("user register successfully");
-        setError("");
+        // alert("user register successfully");
+        toast.dismiss(loadingToast);
         navigate("/");
+        toast.success(`${response.data.message}`)
+        setError("");
         return; 
       }
     } catch (error) {
       console.log(error);
-      setError(error.response.data.message);
+      toast.dismiss(loadingToast);
+      setErrorMsg(error.response.data.message);
+      toast.error("Username or email already exists")
     }
   };
 
@@ -59,9 +66,6 @@ const SignUp = () => {
                 </dl>
                 <button 
                 className="bg-[#DB1A5A] w-[180px] mt-5">Sign Up</button>
-                <div className='text-red-500 text-[12px] mt-5'>
-                  {error}
-                </div>
               </div>
             }
           </Form>
