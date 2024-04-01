@@ -29,7 +29,8 @@ const ForgetPassword = () => {
     
   return (
     <section className="flex flex-col justify-center place-items-center mt-20">
-      <div>Forget Password</div>
+      <div
+      className="text-[30px] font-bold">Forget Password</div>
       <div>
         <Formik 
         initialValues={{
@@ -45,41 +46,33 @@ const ForgetPassword = () => {
             {
               <div>
                 <dl>
-                  <dt>Email</dt>
-                  <dd className='text-black'><Field type="text" name="email"/></dd>
+                  <dt className='mb-1'>Email</dt>
+                  <dd className='text-black'>
+                    <Field type="text" name="email" placeholder="Email"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className='text-red-500'><ErrorMessage name='email'/></dd>
-                  <dt>New Password</dt>
-                  <dd className='text-black'><Field type="password" name="newPassword"/></dd>
+                  <dt className="mb-1 mt-5">New Password</dt>
+                  <dd className='text-black'>
+                    <Field type="password" name="newPassword" placeholder="New Password"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className='text-red-500'><ErrorMessage name='newPassword'/></dd>
                 </dl>
                 <button 
-                className="bg-[#DB1A5A] w-44 mt-5">Confirm</button>
+                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded">Confirm</button>
               </div>
             }
           </Form>
         </Formik>
       </div>
-      {/* <dl>
-        <dt>Email</dt>
-        <dd><input type="text" 
-            className="text-black" placeholder="Your Email"
-            onChange={handleEmail} /></dd>  
-        <dt>New Password</dt>
-        <dd><input type="password" 
-            className="text-black" placeholder="Your New Password"
-            onChange={handlePassword} /></dd>
-      </dl>    
-      <button 
-        className="bg-[#DB1A5A] w-44 mt-5"
-        onClick={handleForgetPassword}>Confirm</button> */}
-      {/* {error} */}
       <div className="flex justify-center place-items-center mt-10">
-        <Link to="/forgetpassword">
-          <span className="ml-2 text-[12px]">Forget Password?</span>
+        <Link to="/">
+          <span className="text-[#C3C3C6] ml-2">Sign In</span>
         </Link>
         <span className="ml-2 ">|</span>
         <Link to="/signup">
-          <span className="ml-2 text-[12px]">Sign Up</span>
+          <span className="text-[#C3C3C6] ml-2">Sign Up</span>
         </Link>
       </div>
     </section>

@@ -10,7 +10,7 @@ import Profile from "./components/Profile"
 
 function App() {
   return (
-    <div className="bg-[#09090B] text-white h-screen">
+    <div className="bg-[#131315] text-white h-screen">
       <Router>
         <Toaster/>
         <Header/>

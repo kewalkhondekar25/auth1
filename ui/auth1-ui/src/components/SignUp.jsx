@@ -30,8 +30,8 @@ const SignUp = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center place-items-center mt-20">
-      <div>Sign Up</div>
+    <section className="flex flex-col justify-center place-items-center mt-6">
+      <div className="text-[30px] font-bold">Sign Up</div>
       <div>
         <Formik 
         initialValues={{
@@ -51,30 +51,44 @@ const SignUp = () => {
             {
               <div>
                 <dl>
-                  <dt>First Name</dt>
-                  <dd className="text-black"><Field type="text" name="username" /></dd>
+                  <dt className="mb-1">First Name</dt>
+                  <dd>
+                    <Field type="text" name="username" placeholder="First Name"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className='text-red-500'><ErrorMessage name="username"/></dd>
-                  <dt>Last Name</dt>
-                  <dd className="text-black"><Field type="text" name="fullName"/></dd>
+                  <dt className="mb-1 mt-5">Last Name</dt>
+                  <dd>
+                    <Field type="text" name="fullName" placeholder="Last Name"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className='text-red-500'><ErrorMessage name="fullName"/></dd>
-                  <dt>Email</dt>
-                  <dd className="text-black"><Field type="email" name="email"/></dd>
+                  <dt className="mb-1 mt-5">Email</dt>
+                  <dd>
+                    <Field type="email" name="email" placeholder="Email"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className='text-red-500'><ErrorMessage name="email"/></dd>
-                  <dt>Password</dt>
-                  <dd className="text-black"><Field type="password" name="password"/></dd>
+                  <dt className="mb-1 mt-5">Password</dt>
+                  <dd>
+                    <Field type="password" name="password" placeholder="Password"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className='text-red-500'><ErrorMessage name="password"/></dd>
                 </dl>
                 <button 
-                className="bg-[#DB1A5A] w-[180px] mt-5">Sign Up</button>
+                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded">Sign Up</button>
               </div>
             }
           </Form>
         </Formik>
       </div>
       <div className="flex justify-center place-items-center mt-3">
-        <span>Already got an account?</span>
+        <span
+        className='text-[#C3C3A4]'>Already got an account?</span>
         <Link to="/">
-          <span className="ml-2 text-[12px]">Sign In</span>
+          <span 
+          className="text-[#C3C3A4] ml-2 underline">Sign In</span>
         </Link>
       </div>
     </section>

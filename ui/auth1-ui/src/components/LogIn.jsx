@@ -5,6 +5,7 @@ import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as yup from "yup"
 import {toast} from "react-hot-toast";
 import {useCookies} from "react-cookie"
+import signInImg from '../assets/signIn.svg';
 
 
 const LogIn = () => {
@@ -36,8 +37,8 @@ const LogIn = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center place-items-center mt-20">
-      <div className="text-2xl">Sign In</div>
+    <section className=" relative flex flex-col justify-center place-items-center mt-14">
+      <div className="text-[30px] font-bold">Sign In</div>
       <div>
         <Formik 
         initialValues={{
@@ -55,14 +56,20 @@ const LogIn = () => {
             {
               <div>
                 <dl>
-                  <dt>Email</dt>
-                  <dd className="text-black"><Field name="email" type="text" placeholder="Your Email"/></dd>
+                  <dt className="mb-1">Email</dt>
+                  <dd>
+                    <Field name="email" type="text" placeholder="Email"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/>
+                  </dd>
                   <dd className="text-red-500"><ErrorMessage name="email"/></dd>
-                  <dt>Password</dt>
-                  <dd className="text-black"><Field name="password" type="password" placeholder="Your Password"/></dd>
+                  <dt className="mb-1 mt-5">Password</dt>
+                  <dd>
+                    <Field name="password" type="password" placeholder="Password"
+                    className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2"/></dd>
                   <dd className="text-red-500"><ErrorMessage name="password"/></dd>
                 </dl>
-                <button className="bg-[#DB1A5A] w-[180px] mt-10">Sign In</button>
+                <button 
+                className="bg-[#DB1A5A] w-[300px] h-[50px] mt-5 rounded">Sign In</button>
               </div>
             }
           </Form>
@@ -70,13 +77,19 @@ const LogIn = () => {
       </div>
       <div className="flex justify-center place-items-center mt-10">
         <Link to="/forgetpassword">
-          <span className="ml-2 text-[12px]">Forget Password?</span>
+          <span 
+          className="text-[#C3C3C6] ml-2 ">Forget Password?</span>
         </Link>
-        <span className="ml-2 ">|</span>
+        <span className="ml-2 text-[#2C2C30]">|</span>
         <Link to="/signup">
-          <span className="ml-2 text-[12px]">Sign Up</span>
+          <span 
+          className="text-[#C3C3C6] ml-2 ">Sign Up</span>
         </Link>
       </div>
+      <img 
+      className="absolute bottom-[-144px] -left-8
+      sm:hidden"
+      src={signInImg} height={180} width={180} />
     </section>
   )
 }
