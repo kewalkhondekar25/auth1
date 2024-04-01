@@ -1,27 +1,34 @@
 import axios from "axios";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom'
-import {useFormik, Formik, Form, Field, ErrorMessage} from "formik"
+import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as yup from "yup"
+import {toast} from "react-hot-toast"
 
 
 const LogIn = () => {
-
-  const [error, setError] = useState();
+  const [errorMsg, setErrorMsg] = useState("");
   const handleLogin = async(payload) => {
+  const loadingToast = toast.loading("Signing in progress...");
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/users/login", payload)
+      loadingToast;
+      const response = await axios.post("http://localhost:8080/api/v1/users/login", payload);
       if(response.status === 200){
-        alert("Login Success");
+        toast.dismiss(loadingToast);
+        toast.success("SignIn Success")
+        // alert("Login Success");
         setError("")
         return 
       }
     } catch (error) {
       console.log(error);
-      setError(error.response.data.message);
+      console.log(error.response.data.message);
+      toast.dismiss(loadingToast);
+      setErrorMsg(error.response.data.message);
+      toast.error(`${errorMsg}`)
     }
   };
-  
+
   return (
     <section className="flex flex-col justify-center place-items-center mt-20">
       <div className="text-2xl">Sign In</div>
@@ -50,9 +57,6 @@ const LogIn = () => {
                   <dd className="text-red-500"><ErrorMessage name="password"/></dd>
                 </dl>
                 <button className="bg-[#DB1A5A] w-[180px] mt-10">Sign In</button>
-                <div className="text-red-500">
-                  {error}
-                </div>
               </div>
             }
           </Form>
