@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp"
 import { Button } from "./components/ui/button"
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import {Toaster} from "react-hot-toast"
+import Profile from "./components/Profile"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<LogIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/forgetpassword" element={<ForgetPassword/>}/>
+          <Route path="/profile" element={<Profile/>}/>
           <Route path="/*" element={<Error/>}/>
         </Routes>
       </Router>

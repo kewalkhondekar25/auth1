@@ -1,30 +1,36 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import * as yup from "yup"
-import {toast} from "react-hot-toast"
+import {toast} from "react-hot-toast";
+import {useCookies} from "react-cookie"
 
 
 const LogIn = () => {
-  const [errorMsg, setErrorMsg] = useState("");
+
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies();
+
   const handleLogin = async(payload) => {
   const loadingToast = toast.loading("Signing in progress...");
     try {
       loadingToast;
       const response = await axios.post("http://localhost:8080/api/v1/users/login", payload);
+      console.log(response.data.data.email);
       if(response.status === 200){
         toast.dismiss(loadingToast);
-        toast.success("SignIn Success")
-        // alert("Login Success");
-        setError("")
+        toast.success("SignIn Success");
+        setCookie("your-cookie", response.data.accessToken);
+        setCookie("first-id", response.data.data.username);
+        setCookie("second-id", response.data.data.email);
+        navigate("/profile");
         return 
       }
     } catch (error) {
       console.log(error);
       console.log(error.response.data.message);
       toast.dismiss(loadingToast);
-      setErrorMsg(error.response.data.message);
       toast.error("Invalid Credentials")
     }
   };
