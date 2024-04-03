@@ -13,7 +13,7 @@ const ForgetPassword = () => {
     const handleForgetPassword = async(payload) => {
     const loadingToast = toast.loading("Updating Password...");
       try {
-        const response = await axios.post("http://localhost:8080/api/v1/users/forgetpassword", payload);
+        const response = await axios.post("https://auth1.itehealthyme.in/api/v1/users/forgetpassword", payload);
         if(response.status === 200){
           toast.dismiss(loadingToast);
           navigate("/");
@@ -47,14 +47,14 @@ const ForgetPassword = () => {
               <div>
                 <dl>
                   <dt className='mb-1'>Email</dt>
-                  <dd className='text-black'>
+                  <dd>
                     <Field type="text" name="email" placeholder="Email"
                     className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
                     sm:w-[500px]"/>
                   </dd>
                   <dd className='text-red-500'><ErrorMessage name='email'/></dd>
                   <dt className="mb-1 mt-5">New Password</dt>
-                  <dd className='text-black'>
+                  <dd>
                     <Field type="password" name="newPassword" placeholder="New Password"
                     className="w-[300px] h-[50px] bg-[#18181B] border border-[#424248] pl-2
                     sm:w-[500px]"/>

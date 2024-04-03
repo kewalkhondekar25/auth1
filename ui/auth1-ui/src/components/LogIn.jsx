@@ -17,7 +17,7 @@ const LogIn = () => {
   const loadingToast = toast.loading("Signing in progress...");
     try {
       loadingToast;
-      const response = await axios.post("http://localhost:8080/api/v1/users/login", payload);
+      const response = await axios.post("https://auth1.itehealthyme.in/api/v1/users/login", payload);
       console.log(response.data.data.email);
       if(response.status === 200){
         toast.dismiss(loadingToast);

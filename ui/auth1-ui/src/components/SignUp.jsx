@@ -12,7 +12,7 @@ const SignUp = () => {
   const loadingToast = toast.loading("Signup in Progress...")
     try {
       loadingToast;
-      const response = await axios.post("http://localhost:8080/api/v1/users/register", payload);
+      const response = await axios.post("https://auth1.itehealthyme.in/api/v1/users/register", payload);
       if(response.status === 200){
         // alert("user register successfully");
         toast.dismiss(loadingToast);
