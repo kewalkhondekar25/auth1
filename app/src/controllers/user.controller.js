@@ -42,7 +42,7 @@ const registerUser = asyncHandler( async (req, res) => {
         $or: [{username}, {email}]
     });
     if(existUser){
-        return res.status(409).json({
+        return res.setHeader('Access-Control-Allow-Origin', '*').status(409).json({
             message: "Username or email already exists"
         });
     };
@@ -68,14 +68,14 @@ const loginUser = asyncHandler( async (req, res) => {
         $or: [{username}, {email}]
     })
     if(!fetchUser){
-        return res.status(404).json({
+        return res.setHeader('Access-Control-Allow-Origin', '*').status(404).json({
             message: "User does not exist"
         })
     };
     //password check
     const isPwdValid = await fetchUser.isPasswordCorrect(password);
     if(!isPwdValid){
-        return res.status(401).json({
+        return res.setHeader('Access-Control-Allow-Origin', '*').status(401).json({
             message: "Invalid User Credentials"
         })
     };
@@ -122,7 +122,7 @@ const changePassword = asyncHandler( async (req, res) => {
     //find id from email
     const user = await User.findOne({email});
     if(!user){
-        return res.status(404).json({
+        return res.setHeader('Access-Control-Allow-Origin', '*').status(404).json({
             message: "Invalid Email Address"
         })
     }
