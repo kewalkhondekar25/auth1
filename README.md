@@ -31,3 +31,7 @@
 
 ### Passwword Recovery
 ![image](https://github.com/kewalkhondekar25/auth1/assets/121751972/3c4ac0b7-fd9c-4d88-bb58-8c4c5524c45f)
+
+### Stats
+![image](https://github.com/kewalkhondekar25/auth1/assets/121751972/50789c41-1baa-40eb-8821-aed018125d44)
+
